@@ -63,14 +63,13 @@ dependencies {
 
 
     //Dagger Hilt
-    implementation("com.google.dagger:hilt-android:2.48.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.48.1")
+
+
+    implementation("com.google.dagger:hilt-android:${Versions.hilt}")
+    kapt("com.google.dagger:hilt-android-compiler:${Versions.hilt}")
 
 //  Ktor Client
-    implementation("io.ktor:ktor-client-core:$ktor_version")
-    implementation("io.ktor:ktor-client-cio:$ktor_version")
-    implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
+    ktor()
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
@@ -78,8 +77,11 @@ dependencies {
     implementation(project(":restApiImpl:ktorImpl"))
 
     // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
-    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
+    implementation(Dependencies.navHostFragment)
+    implementation(Dependencies.navHostUi)
+
+//    implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
+//    implementation("androidx.navigation:navigation-ui-ktx:$nav_version")
 
     //Text Mask
     implementation("com.redmadrobot:input-mask-android:$mask_version")

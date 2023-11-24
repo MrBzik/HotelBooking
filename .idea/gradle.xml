@@ -12,6 +12,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/buildSrc" />
             <option value="$PROJECT_DIR$/restApi" />
             <option value="$PROJECT_DIR$/restApiImpl" />
             <option value="$PROJECT_DIR$/restApiImpl/ktorImpl" />

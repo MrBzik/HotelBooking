@@ -1,4 +1,3 @@
-val ktor_version = "2.3.6"
 
 plugins {
     id("com.android.library")
@@ -44,10 +43,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     //Ktor Client
-    implementation("io.ktor:ktor-client-core:$ktor_version")
-    implementation("io.ktor:ktor-client-cio:$ktor_version")
-    implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
+    ktor()
 
     implementation(project(":restApi"))
 
