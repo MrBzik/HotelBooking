@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/bg_white_cornered"
+    android:layout_marginTop="@dimen/half_margin"
+    >
+
+
+    <include
+        android:id="@+id/viewPager"
+        layout="@layout/view_pager_with_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
+    <TextView
+        android:id="@+id/tvMainTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/base_margin"
+        android:textSize="@dimen/text_size_title"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPeculiarities"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/base_margin"
+        />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_interactive"
+        android:padding="@dimen/half_margin"
+        android:orientation="horizontal"
+        android:layout_marginStart="@dimen/base_margin"
+        >
+        <TextView
+            android:id="@+id/tvSuitDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/interactive_text"
+            android:text="@string/suit_details"
+            android:textSize="@dimen/text_size_secondary"
+            />
+
+        <View
+            android:layout_width="6dp"
+            android:layout_height="12dp"
+            android:background="@drawable/vector_arrow_blue"
+            android:layout_marginStart="@dimen/half_margin"
+            android:layout_gravity="center_vertical"
+            />
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/base_margin"
+        >
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_price"
+            android:layout_marginTop="@dimen/half_margin"
+            android:layout_marginStart="@dimen/base_margin"/>
+
+        <TextView
+            android:id="@+id/tvPriceCondition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/secondary_color"
+            android:textSize="@dimen/text_size_secondary"
+            android:layout_marginTop="@dimen/half_margin"
+            android:layout_marginStart="@dimen/base_margin"/>
+
+    </LinearLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnNavigateToRoom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cornerRadius="@dimen/button_corner_radius"
+        android:backgroundTint="@color/interactive_text"
+        android:layout_marginHorizontal="@dimen/base_margin"
+        android:layout_marginBottom="@dimen/base_margin"
+        android:text="@string/btn_select_suit"/>
+    
+
+
+</LinearLayout>

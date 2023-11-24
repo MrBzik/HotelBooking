@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/llTTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/bg_top_item"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/mainTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hotel_title_main"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/base_margin"
+                android:textSize="@dimen/text_size_header"
+                />
+
+            <include
+                android:id="@+id/viewPager"
+                layout="@layout/view_pager_with_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <include
+                android:id="@+id/viewRating"
+                layout="@layout/view_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="29dp"
+                android:layout_marginStart="@dimen/base_margin"
+                />
+
+            <TextView
+                android:id="@+id/tvHotelName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_title"
+                android:layout_marginTop="@dimen/base_margin"
+                android:layout_marginStart="@dimen/base_margin"/>
+
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/interactive_text"
+                android:layout_marginTop="@dimen/half_margin"
+                android:layout_marginStart="@dimen/base_margin"/>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/base_margin"
+                >
+
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_price"
+                    android:layout_marginTop="@dimen/half_margin"
+                    android:layout_marginStart="@dimen/base_margin"/>
+
+                <TextView
+                    android:id="@+id/tvPriceCondition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/secondary_color"
+                    android:textSize="@dimen/text_size_secondary"
+                    android:layout_marginTop="@dimen/half_margin"
+                    android:layout_marginStart="@dimen/base_margin"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/half_margin"
+            android:background="@drawable/bg_white_cornered"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/llTTop">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:text="@string/hotel_about_title"
+                android:textSize="@dimen/text_size_title" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPeculiarities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin" />
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/base_margin"
+                android:layout_marginTop="@dimen/base_margin"
+                android:textSize="16sp" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/base_margin"
+                android:background="@drawable/bg_light_gray"
+                android:padding="@dimen/base_margin">
+
+                <View
+                    android:id="@+id/viewEmoji"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/vector_emoji_happy"
+                    app:layout_constraintBottom_toTopOf="@+id/tvFacilitiesHint"
+                    app:layout_constraintTop_toBottomOf="@id/tvFacilities"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvFacilities"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/base_margin"
+                    android:text="@string/hotel_facilities"
+                    android:textSize="@dimen/text_size_secondary"
+                    app:layout_constraintStart_toEndOf="@id/viewEmoji"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvFacilitiesHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/base_margin"
+                    android:text="@string/included_minimal"
+                    android:textColor="@color/secondary_color"
+                    android:textSize="@dimen/text_size_hint"
+                    app:layout_constraintStart_toEndOf="@id/viewEmoji"
+                    app:layout_constraintTop_toBottomOf="@id/tvFacilities" />
+
+                <View
+                    android:layout_width="6dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/vector_arrow"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/viewEmoji"
+                    app:layout_constraintBottom_toBottomOf="@id/viewEmoji"/>
+
+                <View
+                    android:id="@+id/separatorTop"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/separator"
+                    android:layout_marginTop="@dimen/half_margin"
+                    app:layout_constraintTop_toBottomOf="@id/tvFacilitiesHint"
+                    app:layout_constraintStart_toStartOf="@id/tvFacilitiesHint"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+                <View
+                    android:id="@+id/viewCheckBox"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/vector_tick_square"
+                    app:layout_constraintBottom_toTopOf="@+id/tvIncludedHint"
+                    app:layout_constraintTop_toBottomOf="@id/tvIncluded"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvIncluded"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/base_margin"
+                    android:layout_marginTop="@dimen/half_margin"
+                    android:text="@string/hotel_included"
+                    android:textSize="@dimen/text_size_secondary"
+                    app:layout_constraintStart_toEndOf="@id/viewCheckBox"
+                    app:layout_constraintTop_toBottomOf="@id/separatorTop" />
+
+                <TextView
+                    android:id="@+id/tvIncludedHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/base_margin"
+                    android:text="@string/included_minimal"
+                    android:textColor="@color/secondary_color"
+                    android:textSize="@dimen/text_size_hint"
+                    app:layout_constraintStart_toEndOf="@id/viewCheckBox"
+                    app:layout_constraintTop_toBottomOf="@id/tvIncluded" />
+
+                <View
+                    android:layout_width="6dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/vector_arrow"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/viewCheckBox"
+                    app:layout_constraintBottom_toBottomOf="@id/viewCheckBox"/>
+
+                <View
+                    android:id="@+id/separatorMiddle"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/separator"
+                    android:layout_marginTop="@dimen/half_margin"
+                    app:layout_constraintTop_toBottomOf="@id/tvIncludedHint"
+                    app:layout_constraintStart_toStartOf="@id/tvIncludedHint"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+                <View
+                    android:id="@+id/viewCrossBox"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/vector_close_square"
+                    app:layout_constraintBottom_toTopOf="@+id/tvNotIncludedHint"
+                    app:layout_constraintTop_toBottomOf="@id/tvNotIncluded"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvNotIncluded"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/base_margin"
+                    android:layout_marginTop="@dimen/half_margin"
+                    android:text="@string/hotel_not_included"
+                    android:textSize="@dimen/text_size_secondary"
+                    app:layout_constraintStart_toEndOf="@id/viewCrossBox"
+                    app:layout_constraintTop_toBottomOf="@id/separatorMiddle" />
+
+                <TextView
+                    android:id="@+id/tvNotIncludedHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/base_margin"
+                    android:text="@string/included_minimal"
+                    android:textColor="@color/secondary_color"
+                    android:textSize="@dimen/text_size_hint"
+                    app:layout_constraintStart_toEndOf="@id/viewCrossBox"
+                    app:layout_constraintTop_toBottomOf="@id/tvNotIncluded" />
+
+                <View
+                    android:layout_width="6dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/vector_arrow"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/viewCrossBox"
+                    app:layout_constraintBottom_toBottomOf="@id/viewCrossBox"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/half_margin"
+            android:paddingHorizontal="@dimen/base_margin"
+            android:layout_marginTop="@dimen/half_margin"
+            android:background="@color/white"
+            >
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNavigateToSuits"
+                app:cornerRadius="@dimen/button_corner_radius"
+                android:backgroundTint="@color/interactive_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/btn_nav_to_suits"/>
+
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+</ScrollView>

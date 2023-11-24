@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="rating">#FFA800</color>
+    <color name="rating_bg">#33FFC700</color>
+    <color name="secondary_color">#828796</color>
+    <color name="party_popper_bg">#F6F6F9</color>
+    <color name="interactive_text">#0D72FF</color>
+    <color name="interactive_bg">#1A0D72FF</color>
+    <color name="light_bg">#FBFBFC</color>
+    <color name="separator">#26828796</color>
+    <color name="main_bg">#0D000000</color>
+    <color name="field_normal">#F6F6F9</color>
+    <color name="field_error">#26EB5757</color>
+</resources>

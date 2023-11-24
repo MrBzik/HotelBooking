@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/main_bg"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/viewHeader"
+        layout="@layout/view_header"
+        />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/half_margin"
+            >
+
+            <include
+                android:id="@+id/viewHotelInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/view_booking_hotel_info"/>
+
+
+            <include
+                android:id="@+id/viewBookingData"
+                layout="@layout/view_booking_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/half_margin"
+                />
+
+            <include
+                android:id="@+id/viewClientInfo"
+                layout="@layout/view_booking_client_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/half_margin"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTourist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+
+                />
+
+
+            <include
+                android:id="@+id/viewAddTourist"
+                layout="@layout/view_booking_add_tourist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/half_margin"
+                />
+
+
+            <include
+                android:id="@+id/viewPayment"
+                layout="@layout/view_booking_payment_sums"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/half_margin"
+                />
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="@dimen/half_margin"
+                android:paddingHorizontal="@dimen/base_margin"
+                android:layout_marginTop="@dimen/half_margin"
+                android:background="@color/white"
+                >
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMakePayment"
+                    app:cornerRadius="@dimen/button_corner_radius"
+                    android:backgroundTint="@color/interactive_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/btn_nav_to_suits"/>
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</LinearLayout>
