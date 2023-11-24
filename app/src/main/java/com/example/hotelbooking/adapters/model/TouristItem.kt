@@ -1,7 +1,7 @@
 package com.example.hotelbooking.adapters.model
 
 import com.example.hotelbooking.adapters.delegateAdapter.DelegateAdapterItem
-import com.example.hotelbooking.data.local.model.TouristInfo
+import com.example.hotelbooking.domain.model.TouristInfo
 
 data class TouristItem(val touristInfo: TouristInfo) : DelegateAdapterItem {
 

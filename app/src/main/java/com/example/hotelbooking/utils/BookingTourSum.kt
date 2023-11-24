@@ -1,6 +1,6 @@
 package com.example.hotelbooking.utils
 
-import com.example.hotelbooking.data.local.model.BookingInfoPresent
+import com.example.hotelbooking.domain.model.BookingInfoPresent
 
 object BookingTourSum {
 

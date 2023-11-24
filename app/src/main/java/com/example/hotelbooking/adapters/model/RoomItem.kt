@@ -1,7 +1,7 @@
 package com.example.hotelbooking.adapters.model
 
 import com.example.hotelbooking.adapters.delegateAdapter.DelegateAdapterItem
-import com.example.hotelbooking.data.local.model.RoomPresent
+import com.example.hotelbooking.domain.model.RoomPresent
 
 data class RoomItem(
     val room : RoomPresent

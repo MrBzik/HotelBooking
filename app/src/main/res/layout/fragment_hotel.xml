@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_title"
                 android:layout_marginTop="@dimen/base_margin"
-                android:layout_marginStart="@dimen/base_margin"/>
+                android:layout_marginHorizontal="@dimen/base_margin"/>
 
 
             <TextView
@@ -59,7 +59,7 @@
                 android:textSize="14sp"
                 android:textColor="@color/interactive_text"
                 android:layout_marginTop="@dimen/half_margin"
-                android:layout_marginStart="@dimen/base_margin"/>
+                android:layout_marginHorizontal="@dimen/base_margin"/>
 
 
             <LinearLayout

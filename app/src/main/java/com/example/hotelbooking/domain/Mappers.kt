@@ -1,5 +1,8 @@
-package com.example.hotelbooking.data.local.model
+package com.example.hotelbooking.domain
 
+import com.example.hotelbooking.domain.model.BookingInfoPresent
+import com.example.hotelbooking.domain.model.HotelInfoPresent
+import com.example.hotelbooking.domain.model.RoomPresent
 import com.example.restapi.entities.BookingInfo
 import com.example.restapi.entities.HotelInfo
 import com.example.restapi.entities.Room

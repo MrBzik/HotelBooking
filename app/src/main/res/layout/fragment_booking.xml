@@ -73,24 +73,9 @@
                 />
 
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingVertical="@dimen/half_margin"
-                android:paddingHorizontal="@dimen/base_margin"
-                android:layout_marginTop="@dimen/half_margin"
-                android:background="@color/white"
-                >
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnMakePayment"
-                    app:cornerRadius="@dimen/button_corner_radius"
-                    android:backgroundTint="@color/interactive_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/btn_nav_to_suits"/>
-            </FrameLayout>
+            <include
+                android:id="@+id/viewBottomButton"
+                layout="@layout/view_bottom_button"/>
 
         </LinearLayout>
 

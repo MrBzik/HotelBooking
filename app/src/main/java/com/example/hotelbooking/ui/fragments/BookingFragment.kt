@@ -4,23 +4,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hotelbooking.R
 import com.example.hotelbooking.adapters.MainDelegateAdapter
 import com.example.hotelbooking.adapters.model.TouristItem
 import com.example.hotelbooking.adapters.model.TouristsAdapterDelegate
-import com.example.hotelbooking.data.local.model.BookingInfoPresent
+import com.example.hotelbooking.domain.model.BookingInfoPresent
 import com.example.hotelbooking.databinding.FragmentBookingBinding
 import com.example.hotelbooking.extensions.observeFlow
+import com.example.hotelbooking.extensions.setError
 import com.example.hotelbooking.extensions.setValidator
 import com.example.hotelbooking.ui.viewmodels.BookingViewModel
 import com.example.hotelbooking.utils.BookingTourSum
 import com.example.hotelbooking.utils.FieldsMasks
+import com.example.hotelbooking.utils.InputFields
+import com.example.hotelbooking.utils.Logger
 import com.redmadrobot.inputmask.MaskedTextChangedListener
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class BookingFragment : Fragment() {
@@ -34,9 +43,15 @@ class BookingFragment : Fragment() {
     private val touristsAdapter : MainDelegateAdapter by lazy {
 
         MainDelegateAdapter.Builder()
-            .add(TouristsAdapterDelegate(){ index ->
-                touristsAdapter.notifyItemChanged(index)
-            })
+            .add(TouristsAdapterDelegate(
+                onShrinkExpandArrowClick = { index ->
+
+                    touristsAdapter.notifyItemChanged(index)
+                },
+                cacheTextFieldsChanges = { field, pos, value ->
+                    bookingViewModel.updateFieldValue(value = value, index = pos, field = field)
+                }
+            ))
             .build()
     }
 
@@ -71,6 +86,23 @@ class BookingFragment : Fragment() {
 
         setClientFieldsValidate()
 
+        listenErrorNotifications()
+
+    }
+
+
+    private fun listenErrorNotifications(){
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                bookingViewModel.errorChannel.consumeEach { errorObj ->
+                    when (errorObj.field) {
+                        InputFields.EMAIL -> bind.viewClientInfo.etEmail.setError()
+                        InputFields.PHONE -> bind.viewClientInfo.etTelephoneNumber.setError()
+                        else -> touristsAdapter.notifyItemChanged(errorObj.index, errorObj.field)
+                    }
+                }
+            }
+        }
     }
 
     private fun setClientFieldsValidate(){
@@ -110,8 +142,17 @@ class BookingFragment : Fragment() {
     }
 
     private fun setBtnMakePaymentClickListener(){
-        bind.btnMakePayment.setOnClickListener {
-            findNavController().navigate(R.id.action_bookingFragment_to_orderSuccessFragment)
+        bind.viewBottomButton.btnBottomButton.setOnClickListener {
+
+            bookingViewModel.validateEmail(bind.viewClientInfo.etEmail.text.toString())
+            bookingViewModel.validatePhoneNumber(bind.viewClientInfo.etTelephoneNumber.text.toString())
+
+            bookingViewModel.validatePayment { isValidated ->
+                if(isValidated)
+                    findNavController().navigate(R.id.action_bookingFragment_to_orderSuccessFragment)
+                else
+                    Toast.makeText(requireContext(), "Заполните все поля", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -133,7 +174,7 @@ class BookingFragment : Fragment() {
 
     private fun observeTouristsList(){
 
-        observeFlow(bookingViewModel.touristInfo){ list ->
+        observeFlow(bookingViewModel.touristsState){ list ->
 
             touristsAdapter.submitList(list.map { TouristItem(it) })
         }
@@ -166,7 +207,7 @@ class BookingFragment : Fragment() {
 
             viewPayment.tvPaymentSum.text = getString(R.string.text_price_short, totalSum)
 
-            btnMakePayment.text = getString(R.string.btn_make_payment, totalSum)
+            viewBottomButton.btnBottomButton.text = getString(R.string.btn_make_payment, totalSum)
 
         }
 

@@ -34,6 +34,20 @@ class MainDelegateAdapter(
     }
 
 
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if(payloads.isEmpty())
+            super.onBindViewHolder(holder, position, payloads)
+        else {
+            val delegateAdapter = delegates[getItemViewType(position)]
+            delegateAdapter.bindWithPayloads(payloads, holder)
+        }
+    }
+
+
     class Builder {
 
         private var count: Int = 0

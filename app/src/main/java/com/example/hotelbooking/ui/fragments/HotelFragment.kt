@@ -15,7 +15,7 @@ import com.example.hotelbooking.adapters.model.SimpleImageAdapterDelegate
 import com.example.hotelbooking.adapters.model.SimpleImageItem
 import com.example.hotelbooking.adapters.model.SimpleTextAdapterDelegate
 import com.example.hotelbooking.adapters.model.SimpleTextItem
-import com.example.hotelbooking.data.local.model.HotelInfoPresent
+import com.example.hotelbooking.domain.model.HotelInfoPresent
 import com.example.hotelbooking.databinding.FragmentHotelBinding
 import com.example.hotelbooking.extensions.observeFlow
 import com.example.hotelbooking.ui.viewmodels.HotelViewModel

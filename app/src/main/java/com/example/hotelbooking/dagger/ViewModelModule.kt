@@ -1,5 +1,7 @@
 package com.example.hotelbooking.dagger
 
+import com.example.hotelbooking.data.TouristsDataSource
+import com.example.hotelbooking.data.local.TouristsDataSourceTestImpl
 import com.example.restapi.datasource.BookingApi
 import com.example.ktorimpl.BookingApiKtorImpl
 import com.example.restapi.datasource.HotelApi
@@ -57,6 +59,13 @@ object ViewModelModule {
     @ViewModelScoped
     fun providesUseCaseFetchBookingInfo(bookingApi: BookingApi) : UseCaseFetchBookingInfo {
         return UseCaseFetchBookingInfo(bookingApi)
+    }
+
+
+    @Provides
+    @ViewModelScoped
+    fun providesTouristsDataSource() : TouristsDataSource {
+        return TouristsDataSourceTestImpl()
     }
 
 

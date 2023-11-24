@@ -1,4 +1,4 @@
-package com.example.hotelbooking.data.local.model
+package com.example.hotelbooking.domain.model
 
 data class BookingInfoPresent(
     val arrivalCountry: String = "",

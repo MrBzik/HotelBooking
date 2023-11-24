@@ -2,7 +2,7 @@ package com.example.hotelbooking.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.hotelbooking.data.local.model.HotelInfoPresent
+import com.example.hotelbooking.domain.model.HotelInfoPresent
 import com.example.hotelbooking.usecases.UseCaseFetchHotelInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

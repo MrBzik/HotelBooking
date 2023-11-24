@@ -1,57 +1,52 @@
 package com.example.hotelbooking.ui.viewmodels
 
+import android.text.Editable
 import android.util.Patterns
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.hotelbooking.data.local.model.BookingInfoPresent
-import com.example.hotelbooking.data.local.model.TouristInfo
+import com.example.hotelbooking.data.TouristsDataSource
+import com.example.hotelbooking.domain.model.BookingError
+import com.example.hotelbooking.domain.model.BookingInfoPresent
+import com.example.hotelbooking.domain.model.TouristInfo
 import com.example.hotelbooking.usecases.UseCaseFetchBookingInfo
-import com.example.hotelbooking.utils.Logger
+import com.example.hotelbooking.utils.InputFields
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.util.Stack
 import javax.inject.Inject
 
 
 @HiltViewModel
 class BookingViewModel @Inject constructor(
-    private val useCaseFetchBookingInfo : UseCaseFetchBookingInfo
+    private val useCaseFetchBookingInfo : UseCaseFetchBookingInfo,
+    private val touristsDataSource: TouristsDataSource
 ): ViewModel() {
 
     private val _bookingInfoState = MutableStateFlow(BookingInfoPresent())
     val bookingInfoState = _bookingInfoState.asStateFlow()
 
-    private val touristsLabels = ArrayDeque<String>().apply {
-        add("Первый")
-        add("Второй")
-        add("Третий")
-        add("Четвертый")
-        add("Пятый")
-        add("Шестой")
-        add("Седьмой")
-        add("Восьмой")
-        add("Девятый")
-        add("Десятый")
-    }
+
+    val errorChannel = Channel<BookingError>()
 
 
-    private val _touristsState = MutableStateFlow(listOf(
-        TouristInfo(
-            id = System.currentTimeMillis(),
-            touristLabel = touristsLabels.removeFirst())))
-    val touristInfo = _touristsState.asStateFlow()
+    val touristsState = touristsDataSource.touristsFlow.asStateFlow()
 
-    fun addNewTourist(){
-        if(touristsLabels.isEmpty()) return
 
-        val newList = _touristsState.value.toMutableList()
-        newList.add(TouristInfo(
-            id = System.currentTimeMillis(),
-            touristLabel = touristsLabels.removeFirst()
-        ))
-        _touristsState.value = newList
+
+
+    private var isEmailValid = false
+    private var isPhoneValid = false
+
+    fun addNewTourist() = viewModelScope.launch{
+
+        touristsDataSource.addNewTourist()
     }
 
 
@@ -63,14 +58,66 @@ class BookingViewModel @Inject constructor(
 
 
 
+    fun updateFieldValue(value: Editable?, index: Int, field: InputFields){
+
+        if (value == null) return
+        touristsDataSource.updateTouristInfo(value.toString(), index, field)
+    }
+
 
     fun validatePhoneNumber(value: String) : Boolean {
-        return value.length == 18
+        val check = value.length == 18
+        isPhoneValid = check
+        return check
     }
 
     fun validateEmail(value: String) : Boolean{
-        return Patterns.EMAIL_ADDRESS.matcher(value).matches()
+        val check = Patterns.EMAIL_ADDRESS.matcher(value).matches()
+        isEmailValid = check
+        return check
     }
+
+
+
+    fun validatePayment(onSuccess : (Boolean) -> Unit) = viewModelScope.launch {
+
+        var isSuccess = true
+
+
+        touristsState.value.forEachIndexed { index, touristInfo ->
+
+            if(touristInfo.fistName.isBlank()) errorChannel.send(BookingError(index, InputFields.FIRST_NAME)).also { isSuccess = false
+            delay(100)
+            }
+            if(touristInfo.lastName.isBlank()) errorChannel.send(BookingError(index, InputFields.LAST_NAME)).also { isSuccess = false
+            delay(100)
+            }
+            if(touristInfo.passportNumber.isBlank()) errorChannel.send(BookingError(index, InputFields.PASSPORT)).also { isSuccess = false
+            delay(100)
+            }
+            if(touristInfo.passportExpire.isBlank()) errorChannel.send(BookingError(index, InputFields.PASSPORT_EXP)).also { isSuccess = false
+            delay(100)
+            }
+            if(touristInfo.citizenship.isBlank()) errorChannel.send(BookingError(index, InputFields.CITIZENSHIP)).also { isSuccess = false
+            delay(100)
+            }
+            if(touristInfo.dateOfBirth.isBlank()) errorChannel.send(BookingError(index, InputFields.DATE_OF_BIRTH)).also { isSuccess = false
+            delay(100)
+            }
+        }
+
+        if(!isEmailValid) errorChannel.send(BookingError(0, InputFields.EMAIL)).also { isSuccess = false
+            delay(100)
+        }
+
+        if(!isPhoneValid) errorChannel.send(BookingError(0, InputFields.PHONE)).also { isSuccess = false
+            delay(100)
+        }
+
+        onSuccess(isSuccess)
+
+    }
+
 
 
 }

@@ -8,4 +8,6 @@ abstract class DelegateAdapter<M, in VH : RecyclerView.ViewHolder>(val modelClas
     abstract fun createViewHolder(parent: ViewGroup): RecyclerView.ViewHolder
     abstract fun bindViewHolder(model: M, viewHolder: VH)
 
+    open fun bindWithPayloads(payloads: MutableList<Any>, viewHolder: VH){}
+
 }
