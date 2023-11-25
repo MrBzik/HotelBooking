@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.hotelbooking.adapters.delegateAdapter.DelegateAdapter
 import com.example.hotelbooking.adapters.delegateAdapter.DelegateAdapterItem
 import com.example.hotelbooking.adapters.delegateAdapter.DelegateAdapterItemDiffCallback
+import com.example.hotelbooking.utils.Logger
 
 class MainDelegateAdapter(
     private val delegates: SparseArray<DelegateAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>>
 ) : ListAdapter<DelegateAdapterItem, RecyclerView.ViewHolder>(DelegateAdapterItemDiffCallback()) {
-
 
     override fun getItemViewType(position: Int): Int {
         for (i in 0 until delegates.size()) {

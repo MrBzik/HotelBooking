@@ -1,5 +1,3 @@
-val ktor_version = "2.3.6"
-
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -49,7 +47,6 @@ android {
 
 dependencies {
 
-    val nav_version = "2.7.5"
     val mask_version = "7.2.6"
 
     implementation("androidx.core:core-ktx:1.9.0")
@@ -71,6 +68,8 @@ dependencies {
 //  Ktor Client
     ktor()
 
+    room()
+
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
     implementation(project(":restApi"))
@@ -87,6 +86,9 @@ dependencies {
     implementation("com.redmadrobot:input-mask-android:$mask_version")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.20")
 
+
+    //Shimmer Effect
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
 
 
 

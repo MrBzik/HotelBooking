@@ -11,9 +11,49 @@
         layout="@layout/view_header"
         />
 
-    <androidx.core.widget.NestedScrollView
+
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:shimmer_auto_start="true"
+        app:shimmer_duration="800"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/half_margin"
+                layout="@layout/shimmer_booking_top"/>
+
+            <include
+                android:layout_marginTop="@dimen/half_margin"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                layout="@layout/shimmer_booking_middle"/>
+
+            <include
+                android:layout_marginTop="@dimen/half_margin"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                layout="@layout/shimmer_booking_bottom"/>
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
         >
 
         <LinearLayout

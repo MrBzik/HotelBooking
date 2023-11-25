@@ -11,12 +11,40 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:shimmer_auto_start="true"
+            app:shimmer_duration="800"
+            >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <include
+                    layout="@layout/shimmer_hotel_top"/>
+
+                <include
+                    android:layout_marginTop="@dimen/half_margin"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    layout="@layout/shimmer_hotel_bottom"/>
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
         <LinearLayout
             android:id="@+id/llTTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             android:background="@drawable/bg_top_item"
+            android:visibility="gone"
             android:orientation="vertical">
 
             <TextView
@@ -33,7 +61,7 @@
                 android:id="@+id/viewPager"
                 layout="@layout/view_pager_with_tab_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="@dimen/view_pager_height"/>
 
 
             <include
@@ -91,14 +119,15 @@
 
         </LinearLayout>
 
-
         <LinearLayout
+            android:id="@+id/llBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/half_margin"
             android:background="@drawable/bg_white_cornered"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/llTTop">
+            android:visibility="gone"
+            >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -147,7 +176,7 @@
                     android:id="@+id/tvFacilities"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/base_margin"
+                    android:layout_marginStart="@dimen/base_margin"
                     android:text="@string/hotel_facilities"
                     android:textSize="@dimen/text_size_secondary"
                     app:layout_constraintStart_toEndOf="@id/viewEmoji"
@@ -157,7 +186,7 @@
                     android:id="@+id/tvFacilitiesHint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/base_margin"
+                    android:layout_marginStart="@dimen/base_margin"
                     android:text="@string/included_minimal"
                     android:textColor="@color/secondary_color"
                     android:textSize="@dimen/text_size_hint"
@@ -197,7 +226,7 @@
                     android:id="@+id/tvIncluded"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/base_margin"
+                    android:layout_marginStart="@dimen/base_margin"
                     android:layout_marginTop="@dimen/half_margin"
                     android:text="@string/hotel_included"
                     android:textSize="@dimen/text_size_secondary"
@@ -208,7 +237,7 @@
                     android:id="@+id/tvIncludedHint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/base_margin"
+                    android:layout_marginStart="@dimen/base_margin"
                     android:text="@string/included_minimal"
                     android:textColor="@color/secondary_color"
                     android:textSize="@dimen/text_size_hint"
@@ -248,7 +277,7 @@
                     android:id="@+id/tvNotIncluded"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/base_margin"
+                    android:layout_marginStart="@dimen/base_margin"
                     android:layout_marginTop="@dimen/half_margin"
                     android:text="@string/hotel_not_included"
                     android:textSize="@dimen/text_size_secondary"
@@ -259,7 +288,7 @@
                     android:id="@+id/tvNotIncludedHint"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/base_margin"
+                    android:layout_marginStart="@dimen/base_margin"
                     android:text="@string/included_minimal"
                     android:textColor="@color/secondary_color"
                     android:textSize="@dimen/text_size_hint"
@@ -278,28 +307,10 @@
 
         </LinearLayout>
 
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/half_margin"
-            android:paddingHorizontal="@dimen/base_margin"
-            android:layout_marginTop="@dimen/half_margin"
-            android:background="@color/white"
-            >
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnNavigateToSuits"
-                app:cornerRadius="@dimen/button_corner_radius"
-                android:backgroundTint="@color/interactive_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/btn_nav_to_suits"/>
-
-
-        </FrameLayout>
-
+        <include
+            android:id="@+id/viewBottomButton"
+            layout="@layout/view_bottom_button"
+            />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

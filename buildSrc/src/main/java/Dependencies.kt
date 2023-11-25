@@ -14,6 +14,10 @@ object Dependencies {
     const val navHostFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navhost}"
     const val navHostUi = "androidx.navigation:navigation-ui-ktx:${Versions.navhost}"
 
+    const val roomRuntime = "androidx.room:room-runtime:${Versions.room}"
+    const val roomCompiler = "androidx.room:room-compiler:${Versions.room}"
+    const val roomPaging = "androidx.room:room-paging:${Versions.room}"
+
 }
 
 fun DependencyHandler.ktor(){
@@ -26,4 +30,10 @@ fun DependencyHandler.ktor(){
 fun DependencyHandler.hilt(){
     implementation(Dependencies.hiltAndroid)
     kapt(Dependencies.hiltCompiler)
+}
+
+fun DependencyHandler.room(){
+    implementation(Dependencies.roomRuntime)
+    implementation(Dependencies.roomPaging)
+    kapt(Dependencies.roomCompiler)
 }

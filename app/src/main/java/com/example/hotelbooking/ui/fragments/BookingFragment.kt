@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -138,8 +139,26 @@ class BookingFragment : Fragment() {
 
             onBookingInfoStateUpdate(bookingInfo)
 
+            handleShimmer(bookingInfo.hotelName.isNotBlank())
+
         }
     }
+
+
+    private fun handleShimmer(isToHandle : Boolean){
+
+        if(!isToHandle) return
+
+        if(!bind.shimmerLayout.isVisible) return
+
+        bind.shimmerLayout.stopShimmer()
+
+        bind.shimmerLayout.visibility = View.GONE
+
+        bind.mainLayout.isVisible = true
+
+    }
+
 
     private fun setBtnMakePaymentClickListener(){
         bind.viewBottomButton.btnBottomButton.setOnClickListener {

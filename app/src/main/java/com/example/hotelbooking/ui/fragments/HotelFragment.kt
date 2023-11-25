@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,7 @@ import com.example.hotelbooking.domain.model.HotelInfoPresent
 import com.example.hotelbooking.databinding.FragmentHotelBinding
 import com.example.hotelbooking.extensions.observeFlow
 import com.example.hotelbooking.ui.viewmodels.HotelViewModel
+import com.example.hotelbooking.utils.Logger
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -34,7 +36,9 @@ class HotelFragment : Fragment() {
 
     private val viewPagerAdapter by lazy {
         MainDelegateAdapter.Builder()
-            .add(SimpleImageAdapterDelegate(glide))
+            .add(SimpleImageAdapterDelegate(
+                glide = glide,
+                imageLoadedCallback = { handleShimmer() }))
             .build()
     }
 
@@ -71,13 +75,36 @@ class HotelFragment : Fragment() {
     }
 
 
+
     private fun observeHotelInfoState(){
 
         observeFlow(hotelViewModel.hotelInfoState){ hotelInfo ->
 
+            inflateMainLayout(isToInflate = hotelInfo.name.isNotBlank())
+
             onHotelInfoUpdated(hotelInfo)
 
         }
+    }
+
+
+    private fun inflateMainLayout(isToInflate : Boolean){
+
+        if(!isToInflate) return
+
+        bind.llTTop.isVisible = true
+        bind.llBottom.isVisible = true
+
+    }
+
+    private fun handleShimmer(){
+
+        if(!bind.shimmerLayout.isVisible) return
+
+        bind.shimmerLayout.stopShimmer()
+
+        bind.shimmerLayout.visibility = View.GONE
+
     }
 
 
@@ -128,15 +155,15 @@ class HotelFragment : Fragment() {
 
     private fun setOnBtnNavigateToSuitsClickListener(){
 
-        bind.btnNavigateToSuits.setOnClickListener {
+        bind.viewBottomButton.btnBottomButton.apply {
 
-            val action = HotelFragmentDirections.actionHotelFragmentToRoomsFragment(bind.tvHotelName.text.toString())
+            text = getString(R.string.btn_nav_to_suits)
 
-            findNavController().navigate(action)
-
-
+            setOnClickListener {
+                val action = HotelFragmentDirections.actionHotelFragmentToRoomsFragment(bind.tvHotelName.text.toString())
+                findNavController().navigate(action)
+            }
         }
-
     }
 
 

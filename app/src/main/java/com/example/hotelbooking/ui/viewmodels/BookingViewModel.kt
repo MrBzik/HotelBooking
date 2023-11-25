@@ -88,7 +88,7 @@ class BookingViewModel @Inject constructor(
             if(value.isBlank()){
                 errorChannel.send(BookingError(index, field))
                 isSuccess = false
-                delay(100)
+                delay(20)
             }
         }
 

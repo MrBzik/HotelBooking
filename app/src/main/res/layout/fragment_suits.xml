@@ -2,13 +2,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/main_bg"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
     <include
         android:id="@+id/viewHeader"
         layout="@layout/view_header"/>
+
+
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:shimmer_auto_start="true"
+        app:shimmer_duration="800"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:layout_marginTop="@dimen/half_margin"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                layout="@layout/shimmer_suits"/>
+
+            <include
+                android:layout_marginTop="@dimen/half_margin"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                layout="@layout/shimmer_suits"/>
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRooms"

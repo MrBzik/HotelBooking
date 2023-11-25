@@ -62,10 +62,10 @@ class TouristsAdapterDelegate(
         when(field){
             InputFields.FIRST_NAME -> viewHolder.bind.etFirstName.setError()
             InputFields.LAST_NAME -> viewHolder.bind.etLastName.setError()
-            InputFields.DATE_OF_BIRTH -> viewHolder.bind.etPassport.setError()
-            InputFields.PASSPORT -> viewHolder.bind.etPassportExpire.setError()
-            InputFields.PASSPORT_EXP -> viewHolder.bind.etCitizenship.setError()
-            InputFields.CITIZENSHIP -> viewHolder.bind.etDateOfBirth.setError()
+            InputFields.DATE_OF_BIRTH -> viewHolder.bind.etDateOfBirth.setError()
+            InputFields.PASSPORT -> viewHolder.bind.etPassport.setError()
+            InputFields.PASSPORT_EXP -> viewHolder.bind.etPassportExpire.setError()
+            InputFields.CITIZENSHIP -> viewHolder.bind.etCitizenship.setError()
             else ->{}
         }
     }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,6 +18,7 @@ import com.example.hotelbooking.adapters.model.RoomsAdapterDelegate
 import com.example.hotelbooking.databinding.FragmentSuitsBinding
 import com.example.hotelbooking.extensions.observeFlow
 import com.example.hotelbooking.ui.viewmodels.RoomsViewModel
+import com.example.hotelbooking.utils.Logger
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -36,10 +38,10 @@ class RoomsFragment : Fragment() {
 
     private val roomsRv by lazy {
         MainDelegateAdapter.Builder()
-            .add(
-                RoomsAdapterDelegate(glide){
+            .add(RoomsAdapterDelegate(
+                    glide, onClickToNavigate = {
                     findNavController().navigate(R.id.action_roomsFragment_to_bookingFragment)
-                }
+                })
             )
             .build()
     }
@@ -72,7 +74,6 @@ class RoomsFragment : Fragment() {
         bind.viewHeader.flContainer.setOnClickListener {
             findNavController().popBackStack()
         }
-
     }
 
 
@@ -86,12 +87,28 @@ class RoomsFragment : Fragment() {
 
     private fun observeRoomsList(){
         observeFlow(roomsViewModel.listOfRooms){ rooms ->
+
+            handleShimmer(rooms.isNotEmpty())
+
             roomsRv.submitList(
                 rooms.map {
                     RoomItem(it)
                 }
             )
         }
+    }
+
+
+    private fun handleShimmer(isToHandle : Boolean){
+
+        if(!isToHandle) return
+
+        if(!bind.shimmerLayout.isVisible) return
+
+        bind.shimmerLayout.stopShimmer()
+
+        bind.shimmerLayout.visibility = View.GONE
+
     }
 
 

@@ -14,7 +14,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 class RoomsAdapterDelegate (
     private val glide : RequestManager,
     private val onClickToNavigate : () -> Unit
-
 ) : DelegateAdapter<RoomItem, RoomsAdapterDelegate.RoomHolder>(RoomItem::class.java) {
 
     class RoomHolder(

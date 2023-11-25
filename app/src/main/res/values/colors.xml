@@ -13,4 +13,5 @@
     <color name="main_bg">#0D000000</color>
     <color name="field_normal">#F6F6F9</color>
     <color name="field_error">#26EB5757</color>
+    <color name="shimmer_color">#80828796</color>
 </resources>
