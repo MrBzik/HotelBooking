@@ -36,7 +36,7 @@ class BookingViewModel @Inject constructor(
     val errorChannel = Channel<BookingError>()
 
 
-    val touristsState = touristsDataSource.touristsFlow.asStateFlow()
+    val touristsState = touristsDataSource.touristsFlow
 
 
 
@@ -84,27 +84,25 @@ class BookingViewModel @Inject constructor(
         var isSuccess = true
 
 
-        touristsState.value.forEachIndexed { index, touristInfo ->
-
-            if(touristInfo.fistName.isBlank()) errorChannel.send(BookingError(index, InputFields.FIRST_NAME)).also { isSuccess = false
-            delay(100)
-            }
-            if(touristInfo.lastName.isBlank()) errorChannel.send(BookingError(index, InputFields.LAST_NAME)).also { isSuccess = false
-            delay(100)
-            }
-            if(touristInfo.passportNumber.isBlank()) errorChannel.send(BookingError(index, InputFields.PASSPORT)).also { isSuccess = false
-            delay(100)
-            }
-            if(touristInfo.passportExpire.isBlank()) errorChannel.send(BookingError(index, InputFields.PASSPORT_EXP)).also { isSuccess = false
-            delay(100)
-            }
-            if(touristInfo.citizenship.isBlank()) errorChannel.send(BookingError(index, InputFields.CITIZENSHIP)).also { isSuccess = false
-            delay(100)
-            }
-            if(touristInfo.dateOfBirth.isBlank()) errorChannel.send(BookingError(index, InputFields.DATE_OF_BIRTH)).also { isSuccess = false
-            delay(100)
+        suspend fun check (value: String, field: InputFields, index: Int){
+            if(value.isBlank()){
+                errorChannel.send(BookingError(index, field))
+                isSuccess = false
+                delay(100)
             }
         }
+
+        touristsState.value.forEachIndexed { index, touristInfo ->
+
+            check(touristInfo.fistName, InputFields.FIRST_NAME, index)
+            check(touristInfo.lastName, InputFields.LAST_NAME, index)
+            check(touristInfo.passportNumber, InputFields.PASSPORT, index)
+            check(touristInfo.passportExpire, InputFields.PASSPORT_EXP, index)
+            check(touristInfo.citizenship, InputFields.CITIZENSHIP, index)
+            check(touristInfo.dateOfBirth, InputFields.DATE_OF_BIRTH, index)
+
+        }
+
 
         if(!isEmailValid) errorChannel.send(BookingError(0, InputFields.EMAIL)).also { isSuccess = false
             delay(100)

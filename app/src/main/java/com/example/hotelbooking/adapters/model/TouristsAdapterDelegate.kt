@@ -1,9 +1,11 @@
 package com.example.hotelbooking.adapters.model
 
 import android.text.Editable
+import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
@@ -38,14 +40,17 @@ class TouristsAdapterDelegate(
             else bind.ivShrinkExpandArrow.setImageResource(R.drawable.vector_arrow_expand)
 
 
+            bind.apply {
+                etDateOfBirth.setText(tourist.touristInfo.dateOfBirth)
+                etFirstName.setText(tourist.touristInfo.fistName)
+                etLastName.setText(tourist.touristInfo.lastName)
+                etPassport.setText(tourist.touristInfo.passportNumber)
+                etPassportExpire.setText(tourist.touristInfo.passportExpire)
+                etCitizenship.setText(tourist.touristInfo.citizenship)
+            }
         }
     }
 
-//    private var onShrinkExpandArrowClick : (() -> Unit)? = null
-//    fun onShrinkExpandArrowClick(click : () -> Unit){
-//        onShrinkExpandArrowClick = click
-//    }
-//
 
 
 
@@ -63,7 +68,6 @@ class TouristsAdapterDelegate(
             InputFields.CITIZENSHIP -> viewHolder.bind.etDateOfBirth.setError()
             else ->{}
         }
-
     }
 
 
@@ -89,61 +93,34 @@ class TouristsAdapterDelegate(
         )
 
 
-        holder.bind.etPassport.addTextChangedListener { editable ->
-            debounceJob = null
-            debounceJob = CoroutineScope(Dispatchers.IO).launch {
-                delay(300)
-                cacheTextFieldsChanges(InputFields.PASSPORT, holder.adapterPosition, editable)
-            }
-        }
-
-        holder.bind.etPassportExpire.addTextChangedListener { editable ->
-            debounceJob = null
-            debounceJob = CoroutineScope(Dispatchers.IO).launch {
-                delay(300)
-                cacheTextFieldsChanges(InputFields.PASSPORT_EXP, holder.adapterPosition, editable)
-            }
-        }
-
-        holder.bind.etFirstName.addTextChangedListener { editable ->
-            debounceJob = null
-            debounceJob = CoroutineScope(Dispatchers.IO).launch {
-                delay(300)
-                cacheTextFieldsChanges(InputFields.FIRST_NAME, holder.adapterPosition, editable)
-            }
-        }
-
-        holder.bind.etLastName.addTextChangedListener { editable ->
-            debounceJob = null
-            debounceJob = CoroutineScope(Dispatchers.IO).launch {
-                delay(300)
-                cacheTextFieldsChanges(InputFields.LAST_NAME, holder.adapterPosition, editable)
-            }
-        }
-
-        holder.bind.etDateOfBirth.addTextChangedListener { editable ->
-            debounceJob = null
-            debounceJob = CoroutineScope(Dispatchers.IO).launch {
-                delay(300)
-                cacheTextFieldsChanges(InputFields.DATE_OF_BIRTH, holder.adapterPosition, editable)
-            }
-        }
-
-        holder.bind.etCitizenship.addTextChangedListener { editable ->
-            debounceJob = null
-            debounceJob = CoroutineScope(Dispatchers.IO).launch {
-                delay(300)
-                cacheTextFieldsChanges(InputFields.CITIZENSHIP, holder.adapterPosition, editable)
+        fun onTextChange(editText: EditText, field: InputFields){
+            editText.addTextChangedListener { editable ->
+                debounceJob = null
+                debounceJob = CoroutineScope(Dispatchers.IO).launch {
+                    delay(300)
+                    cacheTextFieldsChanges(field, holder.adapterPosition, editable)
+                }
             }
         }
 
 
-        holder.bind.etDateOfBirth.setSimpleValidator()
-        holder.bind.etFirstName.setSimpleValidator()
-        holder.bind.etLastName.setSimpleValidator()
-        holder.bind.etPassport.setSimpleValidator()
-        holder.bind.etPassportExpire.setSimpleValidator()
-        holder.bind.etCitizenship.setSimpleValidator()
+        holder.bind.apply {
+
+            onTextChange(etPassport, InputFields.PASSPORT)
+            onTextChange(etPassportExpire, InputFields.PASSPORT_EXP)
+            onTextChange(etFirstName, InputFields.FIRST_NAME)
+            onTextChange(etLastName, InputFields.LAST_NAME)
+            onTextChange(etDateOfBirth, InputFields.DATE_OF_BIRTH)
+            onTextChange(etCitizenship, InputFields.CITIZENSHIP)
+
+            etDateOfBirth.setSimpleValidator()
+            etFirstName.setSimpleValidator()
+            etLastName.setSimpleValidator()
+            etPassport.setSimpleValidator()
+            etPassportExpire.setSimpleValidator()
+            etCitizenship.setSimpleValidator()
+
+        }
 
 
         return holder
@@ -151,6 +128,7 @@ class TouristsAdapterDelegate(
     }
 
     override fun bindViewHolder(model: TouristItem, viewHolder: TouristHolder) {
+
         viewHolder.onBind(tourist = model)
 
         viewHolder.bind.ivShrinkExpandArrow.setOnClickListener {
